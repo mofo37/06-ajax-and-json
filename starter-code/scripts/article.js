@@ -48,15 +48,16 @@ Article.loadAll = function(rawData) {
 Article.fetchAll = function() {
   console.log('hello');}
 if (localStorage.rawData) {
-  var bunnies = localStorage.getItem(data);
-  Article.loadAll(bunnies);
+  var dataParse = JSON.parse(localStorage.rawData);
+  Article.loadAll(dataParse);
   articleView.initIndexPage();   //TODO: What do we pass in to loadAll()?
 } else {
   $.ajax({
     url:'data/hackerIpsum.json',
     method:'GET',
     success: function(data) {
-      localStorage.setItem('data', data);
+      var dataString = JSON.stringify(data);
+      localStorage.setItem('rawData', dataString);
       Article.loadAll(data);
       articleView.initIndexPage();
     },
